@@ -1,0 +1,218 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const uncategorizedLabel = 'Uncategorized';
+const categoryFromId = (id) => {
+	if (!id.includes('/')) return uncategorizedLabel;
+	const [first] = id.split('/');
+	return first || uncategorizedLabel;
+};
+const categories = Array.from(
+	new Set(posts.map((post) => categoryFromId(post.id))),
+).sort();
+const selectedCategory = Astro.url.searchParams.get('category') ?? categories[0];
+const selectedPostsCount = selectedCategory
+	? posts.filter((post) => categoryFromId(post.id) === selectedCategory).length
+	: posts.length;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			main {
+				width: min(1200px, 100%);
+				display: grid;
+				grid-template-columns: 240px 1fr;
+				gap: 2rem;
+				align-items: start;
+			}
+			.sidebar {
+				position: sticky;
+				top: 2rem;
+				align-self: start;
+				padding: 1rem;
+				border-radius: 12px;
+				background: rgb(var(--gray-light));
+			}
+			.sidebar h2 {
+				margin: 0 0 0.75rem 0;
+				font-size: 1rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: rgb(var(--gray-dark));
+			}
+			.category-list {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: grid;
+				gap: 0.5rem;
+			}
+			.category-link {
+				display: block;
+				padding: 0.5rem 0.75rem;
+				border-radius: 10px;
+				text-decoration: none;
+				color: rgb(var(--black));
+				transition: 0.2s ease;
+				background: rgb(var(--white));
+			}
+			.category-link.active {
+				background: rgb(var(--accent));
+				color: rgb(var(--white));
+				box-shadow: var(--box-shadow);
+			}
+			.category-link:hover {
+				color: rgb(var(--accent));
+			}
+			.card-grid {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+				gap: 1rem;
+			}
+			.card {
+				display: block;
+				padding: 1rem;
+				border-radius: 14px;
+				text-decoration: none;
+				color: rgb(var(--black));
+				background: rgb(var(--white));
+				border: 1px solid rgb(var(--gray-light));
+				transition: 0.2s ease;
+				min-height: 160px;
+			}
+			.card:hover {
+				border-color: rgb(var(--accent));
+				box-shadow: var(--box-shadow);
+				transform: translateY(-2px);
+			}
+			.is-hidden {
+				display: none;
+			}
+			.card-title {
+				margin: 0 0 0.5rem 0;
+				font-size: 1.125rem;
+				line-height: 1.2;
+			}
+			.card-desc {
+				margin: 0 0 0.75rem 0;
+				color: rgb(var(--gray-dark));
+				font-size: 0.95rem;
+			}
+			.card-date {
+				margin: 0;
+				color: rgb(var(--gray));
+				font-size: 0.85rem;
+			}
+			.empty {
+				padding: 2rem;
+				border: 1px dashed rgb(var(--gray-light));
+				border-radius: 12px;
+				color: rgb(var(--gray-dark));
+				background: rgb(var(--white));
+			}
+			@media (max-width: 720px) {
+				main {
+					grid-template-columns: 1fr;
+				}
+				.sidebar {
+					position: static;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<aside class="sidebar" data-categories>
+				<h2>Categories</h2>
+				<ul class="category-list">
+					{
+						categories.map((category) => (
+							<li>
+								<a
+									class={`category-link${category === selectedCategory ? ' active' : ''}`}
+									href={`/blog/?category=${encodeURIComponent(category)}`}
+									data-category={category}
+								>
+									{category}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</aside>
+			<section>
+				<ul class="card-grid" data-posts>
+					{
+						posts.map((post) => (
+							<li
+								data-category={categoryFromId(post.id)}
+								class={categoryFromId(post.id) === selectedCategory ? '' : 'is-hidden'}
+							>
+								<a class="card" href={`/blog/${post.id}/`}>
+									<h3 class="card-title">{post.data.title}</h3>
+									<p class="card-desc">{post.data.description}</p>
+									<p class="card-date">
+										<FormattedDate date={post.data.pubDate} />
+									</p>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+				<p class="empty" data-empty hidden={selectedPostsCount !== 0}>
+					No posts in this category yet.
+				</p>
+			</section>
+		</main>
+		<Footer />
+		<script>
+			const sidebar = document.querySelector('[data-categories]');
+			const postsList = document.querySelector('[data-posts]');
+			const emptyState = document.querySelector('[data-empty]');
+			if (sidebar && postsList) {
+				const links = Array.from(sidebar.querySelectorAll('[data-category]'));
+				const items = Array.from(postsList.querySelectorAll('[data-category]'));
+				const setActive = (category) => {
+					links.forEach((link) => {
+						link.classList.toggle('active', link.dataset.category === category);
+					});
+					let visibleCount = 0;
+					items.forEach((item) => {
+						const match = item.dataset.category === category;
+						item.classList.toggle('is-hidden', !match);
+						if (match) visibleCount += 1;
+					});
+					if (emptyState) {
+						emptyState.hidden = visibleCount !== 0;
+					}
+				};
+				links.forEach((link) => {
+					link.addEventListener('click', (event) => {
+						event.preventDefault();
+						const category = link.dataset.category;
+						if (!category) return;
+						const url = new URL(window.location.href);
+						url.searchParams.set('category', category);
+						window.history.replaceState({}, '', url);
+						setActive(category);
+					});
+				});
+			}
+		</script>
+	</body>
+</html>
