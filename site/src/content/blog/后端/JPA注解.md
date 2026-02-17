@@ -1,3 +1,9 @@
+---
+title: JPA注解
+description: JPA常用注解与说明
+pubDate: 2026-01-26
+---
+
 # JPA注解
 
 ```java
@@ -36,4 +42,3 @@
 @PostRemove
 
 ```
-

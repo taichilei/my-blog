@@ -1,3 +1,9 @@
+---
+title: Spring注解
+description: Spring注解 相关笔记
+pubDate: 2026-01-26
+---
+
 # Spring注解
 
 Bean
