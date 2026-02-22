@@ -5,7 +5,7 @@ import Footer from '../../../components/Footer.astro';
 import FormattedDate from '../../../components/FormattedDate.astro';
 import Header from '../../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../../consts';
-import { t, type Lang, languages } from '../../../i18n';
+import { t, type Lang, languages, BASE } from '../../../i18n';
 export function getStaticPaths() {
 	return Object.keys(languages).map((lang) => ({ params: { lang } }));
 }
@@ -155,7 +155,7 @@ const selectedPostsCount = selectedCategory
 							<li>
 								<a
 									class={`category-link${category === selectedCategory ? ' active' : ''}`}
-									href={`${import.meta.env.BASE_URL}${lang}/blog/?category=${encodeURIComponent(category)}`}
+									href={`${BASE}${lang}/blog/?category=${encodeURIComponent(category)}`}
 									data-category={category}
 								>
 									{category}
@@ -175,7 +175,7 @@ const selectedPostsCount = selectedCategory
 									data-category={categoryFromId(post.id)}
 									class={categoryFromId(post.id) === selectedCategory ? '' : 'is-hidden'}
 								>
-									<a class="card" href={`${import.meta.env.BASE_URL}${lang}/blog/${slugWithoutLang}/`}>
+									<a class="card" href={`${BASE}${lang}/blog/${slugWithoutLang}/`}>
 										<h3 class="card-title">{post.data.title}</h3>
 										<p class="card-desc">{post.data.description}</p>
 										<p class="card-date">

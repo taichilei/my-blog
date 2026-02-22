@@ -1,7 +1,6 @@
 ---
-import { defaultLang } from '../i18n';
-const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
-const redirectUrl = `${base}${defaultLang}/`;
+import { defaultLang, BASE } from '../i18n';
+const redirectUrl = `${BASE}${defaultLang}/`;
 ---
 <!doctype html>
 <html>
