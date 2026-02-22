@@ -1,18 +1,28 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
-import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../../consts';
+import { t, type Lang, languages } from '../../../i18n';
+export function getStaticPaths() {
+	return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
-const uncategorizedLabel = 'Uncategorized';
+const lang = Astro.params.lang as Lang;
+const i18n = t(lang);
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+	.filter((post) => post.id.startsWith(`${lang}/`))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const uncategorizedLabel = lang === 'zh' ? '未分类' : 'Uncategorized';
 const categoryFromId = (id) => {
-	if (!id.includes('/')) return uncategorizedLabel;
-	const [first] = id.split('/');
+	const withoutLang = id.replace(`${lang}/`, '');
+	if (!withoutLang.includes('/')) return uncategorizedLabel;
+	const [first] = withoutLang.split('/');
 	return first || uncategorizedLabel;
 };
 const categories = Array.from(
@@ -25,7 +35,7 @@ const selectedPostsCount = selectedCategory
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={lang}>
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
@@ -135,17 +145,17 @@ const selectedPostsCount = selectedCategory
 		</style>
 	</head>
 	<body>
-		<Header />
+		<Header lang={lang} />
 		<main>
 			<aside class="sidebar" data-categories>
-				<h2>分类</h2>
+				<h2>{i18n.categories}</h2>
 				<ul class="category-list">
 					{
 						categories.map((category) => (
 							<li>
 								<a
 									class={`category-link${category === selectedCategory ? ' active' : ''}`}
-									href={`/blog/?category=${encodeURIComponent(category)}`}
+									href={`/${lang}/blog/?category=${encodeURIComponent(category)}`}
 									data-category={category}
 								>
 									{category}
@@ -158,24 +168,27 @@ const selectedPostsCount = selectedCategory
 			<section>
 				<ul class="card-grid" data-posts>
 					{
-						posts.map((post) => (
-							<li
-								data-category={categoryFromId(post.id)}
-								class={categoryFromId(post.id) === selectedCategory ? '' : 'is-hidden'}
-							>
-								<a class="card" href={`/blog/${post.id}/`}>
-									<h3 class="card-title">{post.data.title}</h3>
-									<p class="card-desc">{post.data.description}</p>
-									<p class="card-date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
+						posts.map((post) => {
+							const slugWithoutLang = post.id.replace(`${lang}/`, '');
+							return (
+								<li
+									data-category={categoryFromId(post.id)}
+									class={categoryFromId(post.id) === selectedCategory ? '' : 'is-hidden'}
+								>
+									<a class="card" href={`/${lang}/blog/${slugWithoutLang}/`}>
+										<h3 class="card-title">{post.data.title}</h3>
+										<p class="card-desc">{post.data.description}</p>
+										<p class="card-date">
+											<FormattedDate date={post.data.pubDate} />
+										</p>
+									</a>
+								</li>
+							);
+						})
 					}
 				</ul>
 				<p class="empty" data-empty hidden={selectedPostsCount !== 0}>
-					该分类下暂时没有文章。
+					{i18n.noPosts}
 				</p>
 			</section>
 		</main>
