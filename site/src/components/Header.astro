@@ -14,11 +14,11 @@ const i18n = t(lang);
 
 <header>
 	<nav>
-		<h2><a href={`/${lang}/`}>{SITE_TITLE}</a></h2>
+		<h2><a href={`${import.meta.env.BASE_URL}${lang}/`}>{SITE_TITLE}</a></h2>
 		<div class="internal-links">
-			<HeaderLink href={`/${lang}/`}>{i18n.nav.home}</HeaderLink>
-			<HeaderLink href={`/${lang}/blog`}>{i18n.nav.blog}</HeaderLink>
-			<HeaderLink href={`/${lang}/about`}>{i18n.nav.about}</HeaderLink>
+			<HeaderLink href={`${import.meta.env.BASE_URL}${lang}/`}>{i18n.nav.home}</HeaderLink>
+			<HeaderLink href={`${import.meta.env.BASE_URL}${lang}/blog`}>{i18n.nav.blog}</HeaderLink>
+			<HeaderLink href={`${import.meta.env.BASE_URL}${lang}/about`}>{i18n.nav.about}</HeaderLink>
 			<LangSwitcher currentLang={lang} />
 		</div>
 		<div class="social-links">

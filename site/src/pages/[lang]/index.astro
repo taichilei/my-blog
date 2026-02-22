@@ -61,13 +61,13 @@ const i18n = t(lang);
 		<Header lang={lang} />
 		<main>
 			<section class="hero">
-				<img class="avatar" src="/avatar.png" alt="ChiLei's avatar" />
+				<img class="avatar" src={`${import.meta.env.BASE_URL}avatar.png`} alt="ChiLei's avatar" />
 				<h1>{i18n.hero.greeting}</h1>
 				<p>{i18n.hero.description}</p>
 				<div class="links">
-					<a class="link" href={`/${lang}/blog`}>{i18n.hero.readBlog}</a>
-					<a class="link" href={`/${lang}/about`}>{i18n.hero.aboutMe}</a>
-					<a class="link" href="/rss.xml">{i18n.hero.rss}</a>
+					<a class="link" href={`${import.meta.env.BASE_URL}${lang}/blog`}>{i18n.hero.readBlog}</a>
+					<a class="link" href={`${import.meta.env.BASE_URL}${lang}/about`}>{i18n.hero.aboutMe}</a>
+					<a class="link" href={`${import.meta.env.BASE_URL}rss.xml`}>{i18n.hero.rss}</a>
 				</div>
 			</section>
 		</main>
