@@ -1,1 +1,14 @@
-/.idea
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Images (managed separately)
+image.png
+site/public/image.png
+
+# Sync manifests
+site/src/content/blog/.current_synced_manifest.txt
+site/src/content/blog/.prev_synced_manifest.txt
