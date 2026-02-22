@@ -1,0 +1,40 @@
+---
+import type { Lang } from '../i18n';
+
+interface Props {
+	currentLang: Lang;
+}
+
+const { currentLang } = Astro.props;
+
+const switchLang = currentLang === 'zh' ? 'en' : 'zh';
+const switchLangLabel = currentLang === 'zh' ? 'EN' : '中文';
+
+const path = Astro.url.pathname;
+const newPath = path.startsWith(`/${currentLang}/`)
+	? `/${switchLang}${path.slice(currentLang.length + 1)}`
+	: `/${switchLang}${path}`;
+---
+
+<a
+	class="lang-switcher"
+	href={newPath}
+	title={`切换到 ${switchLangLabel}`}
+>
+	{switchLangLabel}
+</a>
+
+<style>
+	.lang-switcher {
+		padding: 0.5em;
+		margin-left: 0.5em;
+		text-decoration: none;
+		color: rgb(var(--black));
+		font-weight: 700;
+		border-radius: 6px;
+		transition: 0.2s ease;
+	}
+	.lang-switcher:hover {
+		background: rgba(var(--gray-light), 50%);
+	}
+</style>

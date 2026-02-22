@@ -1,0 +1,76 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { t, type Lang, languages } from '../../i18n';
+
+export function getStaticPaths() {
+	return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const i18n = t(lang);
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.hero {
+				text-align: center;
+			}
+			.avatar {
+				width: 140px;
+				height: 140px;
+				border-radius: 999px;
+				object-fit: cover;
+				margin-bottom: 1.25rem;
+				border: 4px solid rgb(var(--white));
+				box-shadow: var(--box-shadow);
+			}
+			.hero p {
+				color: rgb(var(--gray-dark));
+				margin-bottom: 1.25rem;
+			}
+			.links {
+				display: inline-flex;
+				gap: 0.75rem;
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+			.link {
+				display: inline-block;
+				padding: 0.5rem 0.9rem;
+				border-radius: 999px;
+				text-decoration: none;
+				background: rgb(var(--white));
+				border: 1px solid rgb(var(--gray-light));
+				color: rgb(var(--black));
+				transition: 0.2s ease;
+			}
+			.link:hover {
+				border-color: rgb(var(--accent));
+				box-shadow: var(--box-shadow);
+				transform: translateY(-1px);
+			}
+		</style>
+	</head>
+	<body>
+		<Header lang={lang} />
+		<main>
+			<section class="hero">
+				<img class="avatar" src="/avatar.png" alt="ChiLei's avatar" />
+				<h1>{i18n.hero.greeting}</h1>
+				<p>{i18n.hero.description}</p>
+				<div class="links">
+					<a class="link" href={`/${lang}/blog`}>{i18n.hero.readBlog}</a>
+					<a class="link" href={`/${lang}/about`}>{i18n.hero.aboutMe}</a>
+					<a class="link" href="/rss.xml">{i18n.hero.rss}</a>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
