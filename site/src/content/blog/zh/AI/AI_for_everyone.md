@@ -1,5 +1,8 @@
 ---
+title: "AI_for_everyone"
 
+description: ""
+pubDate: "2025-01-01"
 ---
 
 

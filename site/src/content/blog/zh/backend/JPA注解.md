@@ -1,3 +1,8 @@
+---
+title: "JPA注解"
+description: ""
+pubDate: "2025-01-01"
+---
 # JPA注解
 
 ```java

@@ -1,9 +1,11 @@
 ---
-title:"LangExtract"
-decription:"一个 Python 库，使用大语言模型从非结构化文本中提取结构化信息，并自动处理整个流程"
-source:"https://developers.googleblog.com/introducing-langextract-a-gemini-powered-information-extraction-library/"
+title: "LangExtract"
+decription: "一个 Python 库，使用大语言模型从非结构化文本中提取结构化信息，并自动处理整个流程"
+source: "https://developers.googleblog.com/introducing-langextract-a-gemini-powered-information-extraction-library/"
 
 
+description: ""
+pubDate: "2025-01-01"
 ---
 
 

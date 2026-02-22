@@ -1,3 +1,8 @@
+---
+title: "JSX"
+description: ""
+pubDate: "2025-01-01"
+---
 # JSX 是什么？（给前端初学者的理解版）
 
 ## 1. JSX 本质是什么

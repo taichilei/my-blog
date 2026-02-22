@@ -1,7 +1,7 @@
 ---
-  title: Required
-  description:
-  pubDate: 
+title: "Cookie"
+description: ""
+pubDate: "2025-01-01"
 ---
 
 

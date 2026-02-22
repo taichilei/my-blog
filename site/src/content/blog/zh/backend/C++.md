@@ -1,3 +1,8 @@
+---
+title: "C++"
+description: ""
+pubDate: "2025-01-01"
+---
 # C++
 
 因为 STL 设计遵循一个原则：

@@ -1,5 +1,7 @@
 ---
-tag:macmini
+title: "homeassistant"
+description: ""
+pubDate: "2025-01-01"
 ---
 
 
