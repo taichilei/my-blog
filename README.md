@@ -1,5 +1,7 @@
 # My Blog
 
+[中文文档](README.zh-CN.md)
+
 A personal technical blog built with Astro, containing rich technical articles and learning notes.
 
 ## Features
