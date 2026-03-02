@@ -25,7 +25,6 @@ A personal technical blog built with Astro, containing rich technical articles a
 ```
 ├── .github/            # GitHub configuration files
 │   └── workflows/      # GitHub Actions workflows
-├── scripts/            # Script files
 ├── site/               # Blog main directory
 │   ├── public/         # Static resources
 │   ├── src/            # Source code
