@@ -1,107 +1,108 @@
 # My Blog
 
-一个使用 Astro 构建的个人技术博客，包含丰富的技术文章和学习笔记。
+A personal technical blog built with Astro, containing rich technical articles and learning notes.
 
-## 项目特点
+## Features
 
-- **多语言支持**：支持中英文双语言切换
-- **分类清晰**：按技术领域分类，包括 AI、后端、前端、网络、数据库等
-- **性能优化**：使用 Astro 静态站点生成，加载速度快
-- **响应式设计**：适配不同设备屏幕
-- **自动部署**：通过 GitHub Actions 自动部署到 GitHub Pages
+- **Multi-language support**: Supports both Chinese and English language switching
+- **Clear categorization**: Categorized by technical fields, including AI, backend, frontend, network, database, etc.
+- **Performance optimization**: Fast loading speed using Astro static site generation
+- **Responsive design**: Adapts to different device screens
+- **Automatic deployment**: Automatically deployed to GitHub Pages via GitHub Actions
 
-## 技术栈
+## Tech Stack
 
-- **框架**：Astro
-- **内容格式**：Markdown/MDX
-- **多语言**：i18n 支持
-- **部署**：GitHub Actions + GitHub Pages
-- **样式**：原生 CSS
+- **Framework**: Astro
+- **Content format**: Markdown/MDX
+- **Multi-language**: i18n support
+- **Deployment**: GitHub Actions + GitHub Pages
+- **Styling**: Native CSS
 
-## 目录结构
+## Directory Structure
 
 ```
-├── .github/            # GitHub 配置文件
-│   └── workflows/      # GitHub Actions 工作流
-├── scripts/            # 脚本文件
-├── site/               # 博客主目录
-│   ├── public/         # 静态资源
-│   ├── src/            # 源代码
-│   │   ├── components/ # 组件
-│   │   ├── content/    # 博客内容
-│   │   ├── i18n/       # 国际化配置
-│   │   ├── layouts/    # 布局
-│   │   ├── pages/      # 页面
-│   │   └── styles/     # 样式
-│   ├── astro.config.mjs # Astro 配置
-│   └── package.json    # 项目依赖
-└── README.md           # 项目说明
+├── .github/            # GitHub configuration files
+│   └── workflows/      # GitHub Actions workflows
+├── scripts/            # Script files
+├── site/               # Blog main directory
+│   ├── public/         # Static resources
+│   ├── src/            # Source code
+│   │   ├── components/ # Components
+│   │   ├── content/    # Blog content
+│   │   ├── i18n/       # Internationalization configuration
+│   │   ├── layouts/    # Layouts
+│   │   ├── pages/      # Pages
+│   │   └── styles/     # Styles
+│   ├── astro.config.mjs # Astro configuration
+│   └── package.json    # Project dependencies
+├── README.md           # English project documentation
+└── README.zh-CN.md     # Chinese project documentation
 ```
 
-## 快速开始
+## Quick Start
 
-### 环境要求
+### Environment Requirements
 
 - Node.js 18+
-- npm 或 yarn
+- npm or yarn
 
-### 安装依赖
+### Install Dependencies
 
 ```bash
 cd site
 npm install
 ```
 
-### 本地开发
+### Local Development
 
 ```bash
 npm run dev
 ```
 
-访问 `http://localhost:4321` 查看博客。
+Visit `http://localhost:4321` to view the blog.
 
-### 构建生产版本
+### Build Production Version
 
 ```bash
 npm run build
 ```
 
-构建产物会生成在 `site/dist` 目录。
+The build output will be generated in the `site/dist` directory.
 
-## 内容管理
+## Content Management
 
-博客文章位于 `site/src/content/blog/` 目录，按语言和分类组织：
+Blog posts are located in the `site/src/content/blog/` directory, organized by language and category:
 
-- `zh/`：中文文章
-- `en/`：英文文章（预留）
+- `zh/`: Chinese articles
+- `en/`: English articles (reserved)
 
-### 文章分类
+### Article Categories
 
-- **AI**：人工智能相关内容
-- **3D**：空间计算等3D相关内容
-- **Computer Network**：计算机网络相关内容
-- **Data Analyse**：数据分析相关内容
-- **Database**：数据库相关内容
-- **Finance**：财务知识相关内容
-- **IOT**：物联网相关内容
-- **Software Engineering**：软件工程相关内容
-- **backend**：后端开发相关内容
-- **frontend**：前端开发相关内容
-- **mac-mini专栏**：Mac mini 相关内容
-- **运维**：运维相关内容
+- **AI**: Artificial intelligence related content
+- **3D**: 3D related content such as spatial computing
+- **Computer Network**: Computer network related content
+- **Data Analyse**: Data analysis related content
+- **Database**: Database related content
+- **Finance**: Finance knowledge related content
+- **IOT**: Internet of Things related content
+- **Software Engineering**: Software engineering related content
+- **backend**: Backend development related content
+- **frontend**: Frontend development related content
+- **mac-mini专栏**: Mac mini related content
+- **运维**: Operations and maintenance related content
 
-## 部署
+## Deployment
 
-项目使用 GitHub Actions 自动部署到 GitHub Pages：
+The project uses GitHub Actions to automatically deploy to GitHub Pages:
 
-1. 推送代码到 `main` 分支
-2. GitHub Actions 会自动执行构建和部署
-3. 部署完成后，可通过 `https://[username].github.io/my-blog/` 访问
+1. Push code to the `main` branch
+2. GitHub Actions will automatically execute build and deployment
+3. After deployment is complete, you can access it via `https://[username].github.io/my-blog/`
 
-## 贡献
+## Contribution
 
-欢迎提交 Issue 和 Pull Request 来改进这个博客。
+Welcome to submit Issues and Pull Requests to improve this blog.
 
-## 许可证
+## License
 
 MIT License
