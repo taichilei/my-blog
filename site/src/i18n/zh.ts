@@ -6,7 +6,7 @@ export default {
 	},
 	hero: {
 		greeting: '你好，我是 ChiLei',
-		description: '软件工程师，正在备考研究生。这是我的个人网站：记录工程实践、学习笔记与方法论。',
+		description: '记录编程科普、学习笔记与方法论。',
 		readBlog: '阅读博客',
 		aboutMe: '关于我',
 		rss: 'RSS 订阅',

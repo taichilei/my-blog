@@ -6,7 +6,7 @@ export default {
 	},
 	hero: {
 		greeting: 'Hi, I am ChiLei',
-		description: 'Software engineer, preparing for graduate school. This is my personal website: for engineering practices, study notes, and reusable methodologies.',
+		description: 'Software engineer. This is my personal website: for engineering practices, study notes, and reusable methodologies.',
 		readBlog: 'Read Blog',
 		aboutMe: 'About',
 		rss: 'RSS',
