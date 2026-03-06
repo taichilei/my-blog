@@ -1,14 +1,22 @@
 ---
 interface Props {
-	date: Date;
+	date?: any;
 }
 
 const { date } = Astro.props;
+
+// Ensure we have a valid Date object
+let displayDate: Date;
+try {
+	displayDate = typeof date === 'string' ? new Date(date) : (date instanceof Date ? date : new Date());
+} catch {
+	displayDate = new Date();
+}
 ---
 
-<time datetime={date.toISOString()}>
+<time datetime={displayDate.toISOString()}>
 	{
-		date.toLocaleDateString('en-us', {
+		displayDate.toLocaleDateString('en-us', {
 			year: 'numeric',
 			month: 'short',
 			day: 'numeric',
